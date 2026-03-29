@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden Cake House | Siddipet's Favorite Bakery</title>
+    <meta name="description" content="Best quality Cakes, pastries, desserts and biscuits in Siddipet. Order Custom Birthday Cakes, Cool Cakes, and Burgers directly via WhatsApp!">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Config for Custom Bakery Colors & Animations -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bakery: {
+                            50: '#fdf8f5',
+                            100: '#fbece1',
+                            200: '#f5d0b5',
+                            500: '#d97706', // Golden amber
+                            600: '#b45309', // Darker amber
+                            800: '#78350f', // Chocolate brown
+                            900: '#451a03', // Deep chocolate
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for a polished look */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #fdf8f5; }
+        ::-webkit-scrollbar-thumb { background: #d97706; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #b45309; }
+        
+        /* Hide scrollbar for category menu on mobile but keep functionality */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-bakery-50 text-gray-800 font-sans antialiased selection:bg-bakery-500 selection:text-white">
+
+    <!-- Configuration for WhatsApp -->
+    <script>
+        const WHATSAPP_NUMBER = "+919177729579"; // Replace with actual number
+        
+        function orderViaWhatsApp(itemName, price = '') {
+            let text = `Hello Golden Cake House! 🎂 I would like to order: *${itemName}*`;
+            if(price) text += ` (${price})`;
+            text += `. Please let me know the details.`;
+            const message = encodeURIComponent(text);
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function generalWhatsAppQuery() {
+            const message = encodeURIComponent(`Hello Golden Cake House! I have an inquiry...`);
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Menu Filtering Logic
+        function filterMenu(category, btnElement) {
+            const items = document.querySelectorAll('.menu-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Reset buttons
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-bakery-600', 'text-white', 'shadow-md');
+                btn.classList.add('bg-white', 'text-gray-600', 'hover:bg-bakery-50');
+            });
+
+            // Set active button
+            btnElement.classList.remove('bg-white', 'text-gray-600', 'hover:bg-bakery-50');
+            btnElement.classList.add('bg-bakery-600', 'text-white', 'shadow-md');
+
+            // Filter items
+            items.forEach(item => {
+                item.classList.remove('animate-fade-in');
+                // Force reflow to restart animation
+                void item.offsetWidth; 
+                
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                    item.classList.add('animate-fade-in');
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+
+    <!-- Navigation -->
+    <nav class="bg-white/95 backdrop-blur-md shadow-sm fixed w-full z-50 top-0 transition-all border-b border-bakery-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo & Brand -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="relative">
+                        <img src="Golden logo.jpg" alt="Golden Cake House Logo" class="h-12 w-12 md:h-14 md:w-14 rounded-full border-2 border-bakery-500 shadow-sm object-cover" onerror="this.src='https://instagram.fhyd14-2.fna.fbcdn.net/v/t51.2885-19/326085003_712436180266020_5241126897528475157_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=instagram.fhyd14-2.fna.fbcdn.net&_nc_cat=100&_nc_oc=Q6cZ2gG593YL3r1vw6xsud9Cv8kHmw3jMvvYCXl9H9jHoj27lo9Bpe0SOYv-te9-haLLXxunrJJp-QQ5fiiKEGYv71_l&_nc_ohc=XDXyzumENysQ7kNvwE1EM5h&_nc_gid=qQwCNNyrrZFRD7IS_ZyhHQ&edm=APoiHPcBAAAA&ccb=7-5&oh=00_AfygyJDOcOc7e9D3awNpmA-Fgeg4lWPj7Zt1nyG30dSYfQ&oe=69CEE011&_nc_sid=22de04'">
+                        <div class="absolute -bottom-1 -right-1 bg-green-500 w-4 h-4 rounded-full border-2 border-white" title="Open Now"></div>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <h1 class="font-serif text-lg md:text-2xl font-bold text-bakery-900 tracking-tight leading-none">
+                            Golden Cake House
+                        </h1>
+                        <span class="text-[10px] md:text-xs text-bakery-500 font-bold uppercase tracking-wider mt-1">Serving since 1968</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-600 hover:text-bakery-600 transition font-medium text-sm lg:text-base">Home</a>
+                    <a href="#menu" class="text-gray-600 hover:text-bakery-600 transition font-medium text-sm lg:text-base">Menu</a>
+                    <a href="#reviews" class="text-gray-600 hover:text-bakery-600 transition font-medium text-sm lg:text-base">Reviews</a>
+                    <a href="#location" class="text-gray-600 hover:text-bakery-600 transition font-medium text-sm lg:text-base">Location</a>
+                    <button onclick="generalWhatsAppQuery()" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2.5 rounded-full font-medium transition shadow-lg shadow-green-500/30 flex items-center gap-2 transform hover:-translate-y-0.5">
+                        <i class="fab fa-whatsapp text-xl"></i> Order Now
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center md:hidden gap-4">
+                    <button onclick="toggleMobileMenu()" class="text-bakery-900 hover:text-bakery-600 focus:outline-none p-2">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-bakery-100 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
+                <a href="#home" onclick="toggleMobileMenu()" class="block px-3 py-3 text-base font-medium text-gray-800 hover:text-bakery-600 hover:bg-bakery-50 rounded-lg">Home</a>
+                <a href="#menu" onclick="toggleMobileMenu()" class="block px-3 py-3 text-base font-medium text-gray-800 hover:text-bakery-600 hover:bg-bakery-50 rounded-lg">Menu</a>
+                <a href="#reviews" onclick="toggleMobileMenu()" class="block px-3 py-3 text-base font-medium text-gray-800 hover:text-bakery-600 hover:bg-bakery-50 rounded-lg">Reviews</a>
+                <a href="#location" onclick="toggleMobileMenu()" class="block px-3 py-3 text-base font-medium text-gray-800 hover:text-bakery-600 hover:bg-bakery-50 rounded-lg">Location</a>
+                <button onclick="generalWhatsAppQuery(); toggleMobileMenu();" class="mt-4 w-full bg-green-500 text-white px-6 py-3 rounded-xl font-bold transition shadow-md flex items-center justify-center gap-2">
+                    <i class="fab fa-whatsapp text-xl"></i> Chat & Order
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-28 pb-16 md:pt-40 md:pb-24 overflow-hidden relative min-h-screen flex items-center">
+        <!-- Background decorative blobs -->
+        <div class="absolute top-20 left-0 w-72 h-72 bg-bakery-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+        <div class="absolute top-40 right-0 w-72 h-72 bg-yellow-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" style="animation-delay: 2s;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+                
+                <!-- Hero Text -->
+                <div class="space-y-6 md:space-y-8 text-center lg:text-left order-2 lg:order-1">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-bakery-100 shadow-sm text-bakery-800 text-xs md:text-sm font-semibold mx-auto lg:mx-0">
+                        <div class="flex text-yellow-500 text-xs">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span>4.1 Stars (1,071+ Reviews)</span>
+                    </div>
+                    
+                    <h2 class="font-serif text-4xl md:text-6xl lg:text-7xl font-extrabold text-bakery-900 leading-[1.1]">
+                        High Class <br class="hidden lg:block"/> Confectionaries in <span class="text-transparent bg-clip-text bg-gradient-to-r from-bakery-500 to-bakery-800">Siddipet</span>
+                    </h2>
+                    
+                    <p class="text-base md:text-lg text-gray-600 max-w-lg mx-auto lg:mx-0 leading-relaxed font-medium">
+                        <span class="text-bakery-600 font-bold">Love at first bite!</span> Enjoy Siddipet's finest custom cakes, fresh pizzas, hearty burgers, and savory snacks. Baked daily with premium ingredients.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
+                        <button onclick="document.getElementById('menu').scrollIntoView()" class="bg-bakery-900 hover:bg-bakery-800 text-white px-8 py-4 rounded-full font-semibold transition shadow-xl hover:shadow-bakery-900/20 text-center w-full sm:w-auto">
+                            Explore Menu
+                        </button>
+                        <button onclick="generalWhatsAppQuery()" class="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full font-semibold transition shadow-xl shadow-green-500/20 flex items-center justify-center gap-2 w-full sm:w-auto transform hover:-translate-y-1">
+                            <i class="fab fa-whatsapp text-xl"></i> Chat on WhatsApp
+                        </button>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="pt-8 border-t border-bakery-200/60 mt-8">
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Popular right now</p>
+                        <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
+    
+    <a href="pizza.html" class="group flex items-center gap-2 bg-white border border-gray-100 hover:border-bakery-500 px-4 py-2 rounded-full shadow-sm hover:shadow-md transition text-sm font-medium text-gray-700">
+        <span class="bg-orange-100 text-orange-600 p-1.5 rounded-full group-hover:scale-110 transition">
+            <i class="fas fa-pizza-slice"></i>
+        </span> 
+        Pizzas
+    </a>
+    
+    <a href="pizza.html" class="group flex items-center gap-2 bg-white border border-gray-100 hover:border-bakery-500 px-4 py-2 rounded-full shadow-sm hover:shadow-md transition text-sm font-medium text-gray-700">
+        <span class="bg-yellow-100 text-yellow-600 p-1.5 rounded-full group-hover:scale-110 transition">
+            <i class="fas fa-hamburger"></i>
+        </span> 
+        Burgers
+    </a>
+    
+    <button onclick="orderViaWhatsApp('Photo Birthday Cake')" class="group flex items-center gap-2 bg-white border border-gray-100 hover:border-bakery-500 px-4 py-2 rounded-full shadow-sm hover:shadow-md transition text-sm font-medium text-gray-700">
+        <span class="bg-pink-100 text-pink-600 p-1.5 rounded-full group-hover:scale-110 transition">
+            <i class="fas fa-birthday-cake"></i>
+        </span> 
+        Custom Cakes
+    </button>
+    
+</div>
+                    </div>
+                </div>
+
+                <!-- Hero Image -->
+                <div class="relative order-1 lg:order-2 px-4 sm:px-10 lg:px-0">
+                    <div class="relative z-10 animate-float">
+                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Delicious Chocolate Cake" class="rounded-[2rem] shadow-2xl object-cover h-[350px] md:h-[500px] w-full border-4 border-white">
+                        
+                        <!-- Floating Badge -->
+                        <div class="absolute -bottom-6 -left-2 md:-left-8 bg-white p-4 md:p-5 rounded-2xl shadow-xl flex items-center gap-4 animate-bounce" style="animation-duration: 3s;">
+                            <div class="bg-bakery-50 p-3 md:p-4 rounded-full text-bakery-600">
+                                <i class="fas fa-camera-retro text-2xl md:text-3xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] md:text-xs text-gray-500 font-bold uppercase tracking-wider">Specialty</p>
+                                <p class="font-extrabold text-sm md:text-base text-bakery-900">Custom Photo Cakes</p>
+                            </div>
+                        </div>
+
+                        <!-- Freshness Badge -->
+                        <div class="absolute -top-6 -right-2 md:-right-6 bg-white p-3 rounded-full shadow-lg flex items-center justify-center w-20 h-20 md:w-24 md:h-24">
+                            <div class="border border-dashed border-bakery-500 w-full h-full rounded-full flex flex-col items-center justify-center text-bakery-600">
+                                <span class="font-black text-lg md:text-xl leading-none">100%</span>
+                                <span class="text-[10px] font-bold uppercase">Fresh</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- decorative background behind image -->
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-bakery-200 rounded-[3rem] -z-10 rotate-3"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-20 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-bakery-500 font-bold tracking-wider uppercase text-sm mb-2 block">Our Offerings</span>
+                <h3 class="font-serif text-4xl md:text-5xl font-extrabold text-bakery-900 mb-6">Menu Highlights</h3>
+                <p class="text-gray-600 text-lg">From our famous cool cakes to hot savory puffs, everything is baked fresh daily in the biggest bakery in Siddipet.</p>
+            </div>
+
+            <!-- Category Filters -->
+            <div class="flex overflow-x-auto hide-scrollbar justify-start md:justify-center gap-3 mb-12 pb-4 px-2">
+                <button onclick="filterMenu('all', this)" class="filter-btn bg-bakery-600 text-white shadow-md px-6 py-2.5 rounded-full font-semibold text-sm whitespace-nowrap transition-all duration-300">
+                    All Items
+                </button>
+                <button onclick="filterMenu('cake', this)" class="filter-btn bg-white text-gray-600 hover:bg-bakery-50 border border-gray-100 px-6 py-2.5 rounded-full font-semibold text-sm whitespace-nowrap transition-all duration-300">
+                    🍰 Cakes & Pastries
+                </button>
+                <button onclick="filterMenu('fastfood', this)" class="filter-btn bg-white text-gray-600 hover:bg-bakery-50 border border-gray-100 px-6 py-2.5 rounded-full font-semibold text-sm whitespace-nowrap transition-all duration-300">
+                    🍔 Pizzas & Burgers
+                </button>
+                <button onclick="filterMenu('savory', this)" class="filter-btn bg-white text-gray-600 hover:bg-bakery-50 border border-gray-100 px-6 py-2.5 rounded-full font-semibold text-sm whitespace-nowrap transition-all duration-300">
+                    🥐 Savory Puffs
+                </button>
+            </div>
+
+            <!-- Menu Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Card 1: Custom Cake -->
+                <div class="menu-item bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group" data-category="cake">
+                    <div class="h-56 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Custom Birthday Cake" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute top-4 right-4 bg-white/95 backdrop-blur px-3 py-1 rounded-full text-xs font-black text-bakery-800 shadow-sm">Best Seller</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="text-xl font-bold text-bakery-900 leading-tight">Custom Birthday Cakes</h4>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-6 line-clamp-2">Photo printed cakes, elegant designs, and multiple flavors for your special day.</p>
+                        <div class="flex justify-between items-center pt-4 border-t border-gray-50">
+                            <div class="flex flex-col">
+                                <span class="text-xs text-gray-400 font-semibold uppercase">Starting from</span>
+                                <span class="font-black text-lg text-bakery-600">₹400<span class="text-sm font-medium text-gray-500">/kg</span></span>
+                            </div>
+                            <button onclick="orderViaWhatsApp('Custom Birthday Cake', '₹400/kg')" class="bg-bakery-50 hover:bg-bakery-600 text-bakery-600 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                                <i class="fab fa-whatsapp text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Cool Cake -->
+                <div class="menu-item bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group" data-category="cake">
+                    <div class="h-56 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1616541823729-00fe0aacd32c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Red Velvet Cool Cake" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-bakery-900 mb-2 leading-tight">Cool Cakes (Red Velvet)</h4>
+                        <p class="text-sm text-gray-500 mb-6 line-clamp-2">Premium soft sponge layers with rich cream frosting. Perfect for chilling out.</p>
+                        <div class="flex justify-between items-center pt-4 border-t border-gray-50">
+                            <div class="flex flex-col">
+                                <span class="text-xs text-gray-400 font-semibold uppercase">Starting from</span>
+                                <span class="font-black text-lg text-bakery-600">₹450</span>
+                            </div>
+                            <button onclick="orderViaWhatsApp('Red Velvet Cool Cake', '₹450')" class="bg-bakery-50 hover:bg-bakery-600 text-bakery-600 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                                <i class="fab fa-whatsapp text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Chocolate Cake -->
+                <div class="menu-item bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group" data-category="cake">
+                    <div class="h-56 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Double Chocolate Cake" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-bakery-900 mb-2 leading-tight">Double Chocolate Cake</h4>
+                        <p class="text-sm text-gray-500 mb-6 line-clamp-2">Decadent, rich chocolate layers draped in glossy chocolate ganache.</p>
+                        <div class="flex justify-between items-center pt-4 border-t border-gray-50">
+                            <div class="flex flex-col">
+                                <span class="text-xs text-gray-400 font-semibold uppercase">Starting from</span>
+                                <span class="font-black text-lg text-bakery-600">₹500</span>
+                            </div>
+                            <button onclick="orderViaWhatsApp('Double Chocolate Cake', '₹500')" class="bg-bakery-50 hover:bg-bakery-600 text-bakery-600 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                                <i class="fab fa-whatsapp text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Chicken Burger -->
+                <div class="menu-item bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group" data-category="fastfood">
+                    <div class="h-56 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Chicken Burger" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-bakery-900 mb-2 leading-tight">Special Chicken Burger</h4>
+                        <p class="text-sm text-gray-500 mb-6 line-clamp-2">House-made soft buns, crispy chicken patty, fresh veggies and secret sauces.</p>
+                        <div class="flex justify-between items-center pt-4 border-t border-gray-50">
+                            <div class="flex flex-col">
+                                <span class="text-xs text-gray-400 font-semibold uppercase">Fixed Price</span>
+                                <span class="font-black text-lg text-bakery-600">₹120</span>
+                            </div>
+                            <button onclick="orderViaWhatsApp('Special Chicken Burger', '₹120')" class="bg-bakery-50 hover:bg-bakery-600 text-bakery-600 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                                <i class="fab fa-whatsapp text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: Veg Pizza -->
+                <div class="menu-item bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group" data-category="fastfood">
+                    <div class="h-56 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1513104890d38-7c0f0407a475?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fresh Veggie Pizza" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute top-4 left-4 bg-green-500 text-white px-2 py-1 rounded text-xs font-bold shadow-md"><i class="fas fa-leaf mr-1"></i>Veg</div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-bakery-900 mb-2 leading-tight">Farmhouse Veg Pizza</h4>
+                        <p class="text-sm text-gray-500 mb-6 line-clamp-2">Loaded with fresh veggies, gooey cheese, and our signature in-house pizza crust.</p>
+                        <div class="flex justify-between items-center pt-4 border-t border-gray-50">
+                            <div class="flex flex-col">
+                                <span class="text-xs text-gray-400 font-semibold uppercase">Starting from</span>
+                                <span class="font-black text-lg text-bakery-600">₹150</span>
+                            </div>
+                            <button onclick="orderViaWhatsApp('Farmhouse Veg Pizza', '₹150')" class="bg-bakery-50 hover:bg-bakery-600 text-bakery-600 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                                <i class="fab fa-whatsapp text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6: Puffs -->
+                <div class="menu-item bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group" data-category="savory">
+                    <div class="h-56 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fresh Bakery Puffs" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute top-4 right-4 bg-orange-500 text-white px-2 py-1 rounded text-xs font-bold shadow-md">Hot & Fresh</div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-bakery-900 mb-2 leading-tight">Hot Veg & Egg Puffs</h4>
+                        <p class="text-sm text-gray-500 mb-6 line-clamp-2">Flaky, buttery pastry filled with spicy curried vegetables or boiled egg.</p>
+                        <div class="flex justify-between items-center pt-4 border-t border-gray-50">
+                            <div class="flex flex-col">
+                                <span class="text-xs text-gray-400 font-semibold uppercase">Range</span>
+                                <span class="font-black text-lg text-bakery-600">₹20 - ₹30</span>
+                            </div>
+                            <button onclick="orderViaWhatsApp('Veg or Egg Puffs')" class="bg-bakery-50 hover:bg-bakery-600 text-bakery-600 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                                <i class="fab fa-whatsapp text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="mt-16 text-center">
+                <a href="https://www.instagram.com/golden.cake.house/" target="_blank" class="inline-flex items-center justify-center gap-3 bg-white border-2 border-pink-100 hover:border-pink-500 px-8 py-4 rounded-full font-bold text-gray-800 transition shadow-sm hover:shadow-md">
+                    <i class="fab fa-instagram text-2xl text-pink-500"></i> View Full Gallery on Instagram
+                </a>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="py-20 bg-bakery-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div class="max-w-2xl">
+                    <span class="text-bakery-500 font-bold tracking-wider uppercase text-sm mb-2 block">Testimonials</span>
+                    <h3 class="font-serif text-4xl md:text-5xl font-extrabold text-bakery-900 mb-4">What Siddipet Says</h3>
+                    <div class="flex items-center gap-3 text-yellow-500 text-xl bg-white inline-flex px-4 py-2 rounded-full shadow-sm">
+                        <div class="flex">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-900 font-black ml-1 text-lg">4.1</span>
+                        <span class="text-gray-500 text-sm font-medium border-l border-gray-200 pl-3">1,071 Google Reviews</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-transparent hover:border-bakery-200 transition-all duration-300 relative group">
+                    <i class="fas fa-quote-right absolute top-8 right-8 text-bakery-100 text-5xl group-hover:text-bakery-200 transition-colors"></i>
+                    <div class="flex text-yellow-400 mb-6 text-sm">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 mb-8 leading-relaxed relative z-10">"Good taste and nice work by them. we ordered this customised photo printed cake and satisfied with the work. Prices are moderate... Crowd will be there since it's taste is good."</p>
+                    <div class="flex items-center gap-4 border-t border-gray-50 pt-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-bakery-200 to-bakery-400 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-inner">SS</div>
+                        <div>
+                            <p class="font-bold text-bakery-900">Shivva Saishanker</p>
+                            <p class="text-xs text-gray-500 font-medium"><i class="fas fa-award text-yellow-500 mr-1"></i> Local Guide</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-transparent hover:border-bakery-200 transition-all duration-300 relative group transform md:-translate-y-4">
+                    <i class="fas fa-quote-right absolute top-8 right-8 text-bakery-100 text-5xl group-hover:text-bakery-200 transition-colors"></i>
+                    <div class="flex text-yellow-400 mb-6 text-sm">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 mb-8 leading-relaxed relative z-10">"Best cakes in town at super cheap prices. At a very short notice, Shaizaad, manager, has made sure to personally deliver a custom made elegant and delicious birthday cake..."</p>
+                    <div class="flex items-center gap-4 border-t border-gray-50 pt-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-green-200 to-green-400 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-inner">KS</div>
+                        <div>
+                            <p class="font-bold text-bakery-900">KPK Spirate</p>
+                            <p class="text-xs text-gray-500 font-medium"><i class="fas fa-award text-yellow-500 mr-1"></i> Local Guide</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-transparent hover:border-bakery-200 transition-all duration-300 relative group">
+                    <i class="fas fa-quote-right absolute top-8 right-8 text-bakery-100 text-5xl group-hover:text-bakery-200 transition-colors"></i>
+                    <div class="flex text-yellow-400 mb-6 text-sm">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 mb-8 leading-relaxed relative z-10">"Golden cake house is one of the biggest cake making bakery in siddipet. They make their own food like bun, cakes, puffs... A lot of variety cakes are available here."</p>
+                    <div class="flex items-center gap-4 border-t border-gray-50 pt-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-blue-200 to-blue-400 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-inner">RK</div>
+                        <div>
+                            <p class="font-bold text-bakery-900">Ranjith Kumar</p>
+                            <p class="text-xs text-gray-500 font-medium"><i class="fas fa-award text-yellow-500 mr-1"></i> Local Guide</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer & Location -->
+    <footer id="location" class="bg-bakery-900 text-bakery-50 pt-20 pb-10 border-t-[6px] border-bakery-500 relative overflow-hidden">
+        <!-- Decorative Flourish -->
+        <div class="absolute -bottom-24 -right-24 text-white opacity-5 text-[15rem]">
+            <i class="fas fa-birthday-cake"></i>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
+                
+                <!-- Brand Info -->
+                <div class="lg:col-span-5">
+                    <div class="flex items-center gap-4 mb-6">
+                        <img src="Golden logo.jpg" alt="Golden Cake House Logo" class="h-16 w-16 rounded-full border-2 border-bakery-500 bg-white object-cover" onerror="this.src='https://placehold.co/100x100/111827/FFD700?text=GCH'">
+                        <div>
+                            <h4 class="font-serif text-3xl font-bold leading-none">Golden Cake House</h4>
+                            <span class="text-bakery-500 text-sm font-bold uppercase tracking-widest mt-1 block">Since 1968</span>
+                        </div>
+                    </div>
+                    <p class="text-sm md:text-base text-bakery-100/80 mb-8 leading-relaxed max-w-md">
+                        High Class Confectionaries in Siddipet with the best quality baked goods, customized cakes, fresh pizzas, and savory snacks. Make your celebrations sweeter with us.
+                    </p>
+                    <div class="flex gap-4">
+                        <button onclick="generalWhatsAppQuery()" class="w-12 h-12 rounded-full bg-green-500 hover:bg-green-600 flex items-center justify-center transition shadow-lg transform hover:-translate-y-1">
+                            <i class="fab fa-whatsapp text-white text-xl"></i>
+                        </button>
+                        <a href="https://www.instagram.com/golden.cake.house/" target="_blank" class="w-12 h-12 rounded-full bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] hover:opacity-90 flex items-center justify-center transition shadow-lg transform hover:-translate-y-1">
+                            <i class="fab fa-instagram text-white text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Timings -->
+                <div class="lg:col-span-3 lg:col-start-7">
+                    <h5 class="text-xl font-bold mb-6 text-white border-b border-bakery-800 pb-3">Store Hours</h5>
+                    <ul class="space-y-4 text-base text-bakery-100/80">
+                        <li class="flex flex-col">
+                            <span class="font-medium">Monday - Sunday</span>
+                            <span class="font-black text-white text-lg mt-1">10:00 AM - 10:00 PM</span>
+                        </li>
+                        <li class="pt-4">
+                            <span class="inline-flex items-center gap-2 text-green-400 bg-green-400/10 px-4 py-2 rounded-lg text-sm font-bold border border-green-400/20">
+                                <span class="relative flex h-3 w-3">
+                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                  <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                                </span>
+                                Accepting Orders Daily
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Address -->
+                <div class="lg:col-span-3">
+                    <h5 class="text-xl font-bold mb-6 text-white border-b border-bakery-800 pb-3">Visit Us</h5>
+                    <div class="flex gap-4 text-base text-bakery-100/80 mb-6">
+                        <i class="fas fa-map-marker-alt mt-1.5 text-bakery-500 text-xl"></i>
+                        <p class="leading-relaxed">
+                            Siddipet - Ramayampet Rd,<br>
+                            Shivaji Nagar, Siddipet,<br>
+                            Telangana 502103
+                        </p>
+                    </div>
+                    <a href="https://maps.google.com/?q=Golden+Cake+House+Siddipet" target="_blank" class="inline-flex items-center gap-2 border border-bakery-500 text-bakery-100 hover:bg-bakery-500 px-6 py-3 rounded-xl transition font-bold shadow-sm">
+                        <i class="fas fa-directions"></i> Get Directions
+                    </a>
+                </div>
+            </div>
+
+            <!-- Copyright line -->
+            <div class="border-t border-bakery-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-bakery-100/50">
+                <p>&copy; 2026 Golden Cake House, Siddipet. All rights reserved.</p>
+                <p class="flex items-center gap-1">Crafted with <i class="fas fa-heart text-bakery-500"></i> for easy WhatsApp ordering.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button (Bottom Right) -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2 group">
+        <!-- Optional Tooltip -->
+        <div class="bg-white text-gray-800 px-4 py-2 rounded-xl shadow-xl text-sm font-bold opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0 whitespace-nowrap border border-gray-100">
+            Order via WhatsApp! 🍰
+        </div>
+        
+        <div class="relative">
+            <!-- Ping animation behind button -->
+            <div class="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-75"></div>
+            
+            <button onclick="generalWhatsAppQuery()" class="relative bg-green-500 text-white w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-3xl hover:bg-green-600 transition-colors transform hover:scale-110 active:scale-95">
+                <i class="fab fa-whatsapp"></i>
+            </button>
+        </div>
+    </div>
+
+</body>
+</html>
